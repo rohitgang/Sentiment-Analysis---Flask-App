@@ -1,2 +1,6 @@
 # Sentiment-Analysis---Flask-App
-Deploy a flask app for performing sentiment analysis
+
+## Steps to Follow:
+1. Write flask server side code
+    1. Read up on flask code. 
+    2. Research flask in and out

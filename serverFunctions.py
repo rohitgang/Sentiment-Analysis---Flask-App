@@ -1,38 +1,42 @@
-from flask import Flask
-from flask_restful import Api, Resource, reqparse
+import nltk
 from textblob import TextBlob
 import matplotlib.pyplot as plt
 
-class Sentiment(Resource):
+def getSentiment(wiki):
+   wiki= TextBlob(wiki)
+   subjectivity= wiki.sentiment.subjectivity
+   polarity= wiki.sentiment.polarity
+   sentiment= (subjectivity,polarity)
+   return sentiment
 
-    def getSentiment(self, wiki):
-        wiki= TextBlob(wiki)
-        subjectivity= wiki.sentiment.subjectivity
-        polarity= wiki.sentiment.polarity
-        sentiment= (subjectivity,polarity)
-        return sentiment, 200
+def getSentenceAnalysis(wiki):
+   wiki= TextBlob(wiki)
+   tags= wiki.tags
+   return tags
 
-    def getSentenceAnalysis(self, wiki):
-        wiki= TextBlob(wiki)
-        tags= wiki.tags
-        return tags, 200
+def getSubjectivityGraph(wiki):
+  sentiment= getSentiment(wiki)
+  subjectivity= [sentiment[0], 1-sentiment[0]]
+  fig= plt.figure()
+  subjectColors= ['yellow','blue']
+  ax=fig.add_subplot(111)
+  ax.pie(subjectivity,
+        colors= subjectColors,
+        shadow= True)
+  ax.axis('equal')
+  fig.savefig('static/images/subject.png')
+  return 'static/images/subject.png'
 
-    def getSentimentGraph(self, wiki):
-        sentiment= getSentiment(wiki)
-        subjectivity= [sentiment[0], 1-sentiment[0]]
-        polarity= [sentiment[1], 1-sentiment[1]]
 
-        subjectColors= ['yellow','blue']
-        subjectPlt= plt.pie(subjectivity,
-                            colors= subjectColors,
-                            shadow= True)
-        subjectPlt= subjectPlt.axis('equal')
-
-        polarityColors= ['red','green']
-        polarityPlt= plt.pie(polarity,
-                             colors= polarityColors,
-                             shadow= True)
-        polarityPlt= polarityPlt.axis('equal')
-        graphs= (subjectPlt, polarityPlt)
-        return graphs, 200
-
+def getPolarityGraph(wiki):
+    sentiment = getSentiment(wiki)
+    polarity = [sentiment[1], 1 - sentiment[1]]
+    polarityColors = ['red', 'green']
+    fig= plt.figure()
+    ax= fig.add_subplot(111)
+    ax.pie(polarity,
+            colors=polarityColors,
+            shadow=True)
+    ax.axis('equal')
+    fig.savefig('static/images/polar.png')
+    return 'static/images/polar.png'
