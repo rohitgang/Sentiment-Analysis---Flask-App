@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <title>ANALYSIS</title>
+    <meta name="viewport" content="width-device-width, initial-scale=1.0, maximum-scaled=1.0, user-scalable=no">
+    <link href="../static/layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+</head>
+<body id="top">
+<div class="wrapper row1">
+    <header id="header" class="hoc clear">
+        <h2>Here are your results!</h2>
+    </header>
+</div>
+<div classes="wrapper bgded overlay light" style="...">
+    <article>
+        <script>
+            var wiki={{ wiki }};
+        </script>
+        <p>Here's the analyses : {{wiki}}</p>
+        <script>
+            var dir= {{dir}};
+        </script>
+        <img src= {{dir}} alt="Chart" height="200" width="200">
+        <footer>
+            <ul class="'nospace inline pushright">
+                <li><a class="btn" href="/sentiment.html">Enter Another</a></li>
+                <li><a class="btn" href="/">Go Home</a></li>
+            </ul>
+        </footer>
+    </article>
+
+</div>
+</body>
+</html>
